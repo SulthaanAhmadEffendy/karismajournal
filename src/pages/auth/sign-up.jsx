@@ -28,7 +28,7 @@ export function SignUp() {
       return;
     }
 
-    if (password.length < 5) {
+    if (password.length < 6) {
       setErrorMessage('Password must be at least 5 characters long.');
       setIsLoading(false);
       return;
