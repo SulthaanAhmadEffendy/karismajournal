@@ -28,6 +28,12 @@ export function SignUp() {
       return;
     }
 
+    if (password.length < 5) {
+      setErrorMessage('Password must be at least 5 characters long.');
+      setIsLoading(false);
+      return;
+    }
+
     try {
       const response = await fetch(
         'https://journal.bariqfirjatullah.pw/api/auth/register',
