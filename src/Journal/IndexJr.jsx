@@ -277,10 +277,10 @@ const IndexJr = () => {
       if (response.status === 200) {
         setMessage('Journal updated successfully.');
         setIsError(false);
+        fetchJournals();
+        closeEditModal();
         setTimeout(() => {
           setMessage('');
-          fetchJournals();
-          closeEditModal();
         }, 3000);
       } else {
         setMessage(`Failed to update journal. Status code: ${response.status}`);
@@ -497,11 +497,15 @@ const IndexJr = () => {
           </CardBody>
         </div>
         {message && (
-          <p
-            className={`text-${isError ? 'red' : 'green'}-500 text-center mt-4`}
+          <div
+            className={`mt-4 p-4 rounded ${
+              isError
+                ? 'bg-red-200 text-red-800'
+                : 'bg-green-200 text-green-800'
+            }`}
           >
             {message}
-          </p>
+          </div>
         )}
       </Card>
 
@@ -610,15 +614,6 @@ const IndexJr = () => {
             Cancel
           </Button>
         </DialogFooter>
-        {message && (
-          <p
-            className={`mt-2 text-sm ${
-              isError ? 'text-red-600' : 'text-green-600'
-            }`}
-          >
-            {message}
-          </p>
-        )}
       </Dialog>
     </>
   );
