@@ -494,26 +494,24 @@ const IndexJr = () => {
                 </tbody>
               </table>
             </div>
+            {message && (
+              <div
+                className={`text-center ${
+                  isError ? ' text-red-800' : ' text-green-800'
+                }`}
+              >
+                {message}
+              </div>
+            )}
           </CardBody>
         </div>
-        {message && (
-          <div
-            className={`mt-4 p-4 rounded ${
-              isError
-                ? 'bg-red-200 text-red-800'
-                : 'bg-green-200 text-green-800'
-            }`}
-          >
-            {message}
-          </div>
-        )}
       </Card>
 
       <Dialog
         open={modalOpen}
         onClose={closeEditModal}
         size='lg'
-        className='overflow-auto max-h-[80vh]'
+        className='overflow-auto max-h-[80vh] sm:max-w-lg md:max-w-2xl lg:max-w-4xl'
       >
         <DialogHeader>Edit Journal</DialogHeader>
         <DialogBody>
