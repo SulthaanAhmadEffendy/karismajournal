@@ -437,7 +437,7 @@ const IndexJr = () => {
             <div className='text-center mb-5 font-bold'>Journals List</div>
             <div className='overflow-x-auto'>
               <table className='w-full min-w-[320px] table-auto rounded-lg'>
-                <thead className='bg-gray-800 text-white rounded-t-lg'>
+                <thead className='bg-gray-800 text-white'>
                   <tr>
                     <th className='py-3 px-4 text-left'>Start At</th>
                     <th className='py-3 px-4 text-left'>End At</th>
@@ -462,9 +462,7 @@ const IndexJr = () => {
                         <td className='py-3 px-4'>{item.category.name}</td>
                         <td className='py-3 px-4'>{item.description}</td>
                         <td
-                          className={`py-2 px-4 border-b ${getStatusColor(
-                            item.status
-                          )}`}
+                          className={`py-2 px-4 ${getStatusColor(item.status)}`}
                         >
                           {item.status}
                         </td>
@@ -497,7 +495,7 @@ const IndexJr = () => {
             {message && (
               <div
                 className={`text-center ${
-                  isError ? ' text-red-800' : ' text-green-800'
+                  isError ? 'text-red-800' : 'text-green-800'
                 }`}
               >
                 {message}
