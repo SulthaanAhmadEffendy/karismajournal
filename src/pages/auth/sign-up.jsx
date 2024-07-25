@@ -55,8 +55,7 @@ export function SignUp() {
       const data = await response.json();
 
       if (response.ok) {
-        console.log('Registration successful');
-        navigate('/auth/sign-in');
+        navigate('/auth/sign-in', { state: { registrationSuccess: true } });
       } else {
         setErrorMessage('Regitration failed: ' + data.message);
       }

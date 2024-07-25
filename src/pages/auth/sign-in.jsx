@@ -1,13 +1,29 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Input, Button, Typography } from '@material-tailwind/react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 export function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+
+  useEffect(() => {
+    if (location.state && location.state.registrationSuccess) {
+      setSuccessMessage(
+        'Registration successful! Please log in using your email and password.'
+      );
+
+      const timer = setTimeout(() => {
+        setSuccessMessage('');
+      }, 6000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [location]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,7 +55,6 @@ export function SignIn() {
 
       if (response.ok) {
         localStorage.setItem('token', data.data.token);
-        console.log('Login successful');
         navigate('/dashboard');
       } else {
         setErrorMessage('Login failed: ' + data.message);
@@ -66,6 +81,11 @@ export function SignIn() {
           >
             Enter your email and password to Sign In.
           </Typography>
+          {successMessage && (
+            <Typography variant='medium' color='green' className='mt-2'>
+              {successMessage}
+            </Typography>
+          )}
         </div>
         <form
           className='mt-8 mb-2 mx-auto w-80 max-w-screen-lg lg:w-1/2'
@@ -115,7 +135,7 @@ export function SignIn() {
             </Typography>
           )}
 
-          <Button className='mt-6' fullWidth type='submit'>
+          <Button className='mt-6' fullWidth type='submit' disabled={isLoading}>
             {isLoading == true ? 'Loading' : 'Sign In'}
           </Button>
 

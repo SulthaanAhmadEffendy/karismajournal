@@ -5,6 +5,7 @@ import {
   Button,
   Card,
   CardBody,
+  Chip,
   Dialog,
   DialogBody,
   DialogFooter,
@@ -76,6 +77,7 @@ const IndexJr = () => {
   };
 
   const deleteJournal = async (id) => {
+    setLoading(true);
     const token = localStorage.getItem('token');
     try {
       await axios.delete(
@@ -95,6 +97,7 @@ const IndexJr = () => {
       fetchJournals();
     } catch (error) {
       console.log('Error deleting journal:', error);
+      setLoading(false);
     }
   };
 
@@ -199,9 +202,9 @@ const IndexJr = () => {
           description: '',
           status: 'progress',
         });
+        fetchJournals();
         setTimeout(() => {
           setAddJournalMessage('');
-          fetchJournals();
         }, 3000);
       } else {
         setAddJournalMessage(
@@ -219,7 +222,6 @@ const IndexJr = () => {
       }
       setAddJournalMessage(`Error: ${error.message}`);
       setIsAddJournalError(true);
-    } finally {
       setLoading(false);
     }
   };
@@ -238,7 +240,7 @@ const IndexJr = () => {
     ) {
       setMessage('Please fill in all fields.');
       setIsError(true);
-      setLoading(false);
+
       return;
     }
 
@@ -247,14 +249,6 @@ const IndexJr = () => {
 
       const formattedStartAt = formatDateToYmdHms(editJournal.start_at);
       const formattedEndAt = formatDateToYmdHms(editJournal.end_at);
-
-      console.log('Edit Payload:', {
-        start_at: formattedStartAt,
-        end_at: formattedEndAt,
-        category_id: editJournal.category_id,
-        description: editJournal.description,
-        status: editJournal.status,
-      });
 
       const response = await axios.put(
         `https://journal.bariqfirjatullah.pw/api/journal/${editJournal.id}`,
@@ -303,7 +297,6 @@ const IndexJr = () => {
         setMessage(`Error: ${error.message}`);
       }
       setIsError(true);
-    } finally {
       setLoading(false);
     }
   };
@@ -311,13 +304,13 @@ const IndexJr = () => {
   const getStatusColor = (status) => {
     switch (status) {
       case 'pending':
-        return 'bg-yellow-200 text-yellow-800';
+        return 'amber';
       case 'cancel':
-        return 'bg-red-200 text-red-800';
+        return 'red';
       case 'complete':
-        return 'bg-green-200 text-green-800';
+        return 'green';
       default:
-        return 'bg-gray-200 text-gray-800';
+        return 'indigo';
     }
   };
 
@@ -327,6 +320,7 @@ const IndexJr = () => {
         <div className='container mx-auto'>
           <div className='bg-white   p-6'>
             <h2 className='text-lg font-semibold mb-4'>Add Journal</h2>
+
             <form onSubmit={handleSubmit}>
               <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                 <div className='mb-4'>
@@ -435,6 +429,15 @@ const IndexJr = () => {
           <hr class='border-t border-black my-4'></hr>
           <CardBody>
             <div className='text-center mb-5 font-bold'>Journals List</div>
+            {message && (
+              <div
+                className={`text-start  ${
+                  isError ? 'text-red-800' : 'text-green-800'
+                }`}
+              >
+                {message}
+              </div>
+            )}
             <div className='overflow-x-auto'>
               <table className='w-full min-w-[320px] table-auto rounded-lg'>
                 <thead className='bg-gray-800 text-white'>
@@ -461,23 +464,28 @@ const IndexJr = () => {
                         <td className='py-3 px-4'>{item.end_at}</td>
                         <td className='py-3 px-4'>{item.category.name}</td>
                         <td className='py-3 px-4'>{item.description}</td>
-                        <td
-                          className={`py-2 px-4 ${getStatusColor(item.status)}`}
-                        >
-                          {item.status}
+                        <td className={`py-2 px-4 `}>
+                          <Chip
+                            color={getStatusColor(item.status)}
+                            value={item.status}
+                            className='w-fit'
+                          />
                         </td>
                         <td className='py-3 px-4 flex space-x-2'>
                           <Button
                             onClick={() => handleEditClick(item)}
-                            className='bg-yellow-500 hover:bg-yellow-700 text-white py-2 px-2 text-xs'
+                            className=' py-2 px-2 text-xs'
+                            color='blue'
                           >
                             Edit
                           </Button>
                           <Button
                             onClick={() => handleDeleteClick(item.id)}
-                            className='bg-red-500 hover:bg-red-700 text-white py-2 px-2 text-xs'
+                            className=' py-2 px-2 text-xs'
+                            disabled={loading}
+                            color='red'
                           >
-                            Delete
+                            {loading ? 'Deleting...' : 'Delete'}
                           </Button>
                         </td>
                       </tr>
@@ -492,15 +500,6 @@ const IndexJr = () => {
                 </tbody>
               </table>
             </div>
-            {message && (
-              <div
-                className={`text-center ${
-                  isError ? 'text-red-800' : 'text-green-800'
-                }`}
-              >
-                {message}
-              </div>
-            )}
           </CardBody>
         </div>
       </Card>
