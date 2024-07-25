@@ -169,7 +169,7 @@ export function SignUp() {
             </Typography>
           )}
 
-          <Button className='mt-6' fullWidth type='submit'>
+          <Button className='mt-6' fullWidth type='submit' disabled={isLoading}>
             {isLoading == true ? 'Loading' : 'Sign Up'}
           </Button>
 
