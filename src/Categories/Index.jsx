@@ -234,7 +234,7 @@ function Index() {
 
         <hr class='border-t border-black my-4'></hr>
 
-        <div className='text-center m-5 font-bold '>CATEGORY</div>
+        <div className='text-center m-2 font-bold '>CATEGORY</div>
         {message && (
           <p
             className={`text-center mt-4 ${
