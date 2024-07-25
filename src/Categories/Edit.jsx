@@ -7,7 +7,7 @@ function Edit() {
   const navigate = useNavigate();
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [loadingEdit, setLoadingEdit] = useState(false);
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
@@ -38,7 +38,7 @@ function Edit() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    setLoadingEdit(true);
     const token = localStorage.getItem('token');
     try {
       const response = await axios.put(
@@ -80,7 +80,7 @@ function Edit() {
       setMessage(`Error: ${error.message}`);
       setIsError(true);
     } finally {
-      setLoading(false);
+      setLoadingEdit(false);
     }
   };
 
@@ -108,9 +108,9 @@ function Edit() {
           type='submit'
           className='bg-blue-500 text-white py-2 px-4 rounded
            hover:bg-blue-600'
-          disabled={loading}
+          disabled={loadingEdit}
         >
-          {loading ? 'Updating' : 'Update'}
+          {loadingEdit ? 'Updating' : 'Update'}
         </button>
       </form>
       {message && (

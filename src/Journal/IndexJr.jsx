@@ -477,7 +477,7 @@ const IndexJr = () => {
                           <Button
                             onClick={() => handleEditClick(item)}
                             className=' py-2 px-2 text-xs'
-                            color='blue'
+                            color='amber'
                           >
                             Edit
                           </Button>
