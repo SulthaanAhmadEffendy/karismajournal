@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 function Add() {
   const [categoryName, setCategoryName] = useState('');
   const [message, setMessage] = useState('');
-  const [loading, setIsLoading] = useState(false);
+  const [loadingAdd, setIsLoadingAdd] = useState(false);
   const [isError, setIsError] = useState(false);
 
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ function Add() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setIsLoading(true);
+    setIsLoadingAdd(true);
     try {
       const token = localStorage.getItem('token');
       const response = await axios.post(
@@ -55,7 +55,7 @@ function Add() {
       setMessage(`Terjadi kesalahan: ${error.message}`);
       setIsError(true);
     } finally {
-      setIsLoading(false);
+      setIsLoadingAdd(false);
     }
   };
 
@@ -82,9 +82,9 @@ function Add() {
         <button
           type='submit'
           className='bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600'
-          disabled={loading}
+          disabled={loadingAdd}
         >
-          {loading ? 'Adding' : 'Add'}
+          {loadingAdd ? 'Adding' : 'Add'}
         </button>
       </form>
       {message && (

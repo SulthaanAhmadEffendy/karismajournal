@@ -16,6 +16,8 @@ const IndexJr = () => {
   const [journals, setJournals] = useState([]);
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(true);
+  const [loadingAdd, setLoadingAdd] = useState(false);
+  const [loadingEdit, setLoadingEdit] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [editJournal, setEditJournal] = useState(null);
   const [categories, setCategories] = useState([]);
@@ -152,7 +154,7 @@ const IndexJr = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setLoading(true);
+    setLoadingAdd(true);
     setAddJournalMessage('');
 
     if (
@@ -222,13 +224,13 @@ const IndexJr = () => {
       }
       setAddJournalMessage(`Error: ${error.message}`);
       setIsAddJournalError(true);
-      setLoading(false);
+      setLoadingAdd(false);
     }
   };
 
   const handleEditSubmit = async (event) => {
     event.preventDefault();
-    setLoading(true);
+    setLoadingEdit(true);
     setMessage('');
 
     if (
@@ -297,7 +299,7 @@ const IndexJr = () => {
         setMessage(`Error: ${error.message}`);
       }
       setIsError(true);
-      setLoading(false);
+      setLoadingEdit(false);
     }
   };
 
@@ -409,9 +411,9 @@ const IndexJr = () => {
               <Button
                 type='submit'
                 className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
-                disabled={loading}
+                disabled={loadingAdd}
               >
-                {loading ? 'Adding...' : 'Add'}
+                {loadingAdd ? 'Adding...' : 'Add'}
               </Button>
             </form>
             {addJournalMessage && (
@@ -600,10 +602,10 @@ const IndexJr = () => {
           <Button
             color='blue'
             onClick={handleEditSubmit}
-            disabled={loading}
+            disabled={loadingEdit}
             className='mr-3'
           >
-            {loading ? 'Updating...' : 'Save'}
+            {loadingEdit ? 'Updating...' : 'Save'}
           </Button>
           <Button color='red' onClick={closeEditModal}>
             Cancel
