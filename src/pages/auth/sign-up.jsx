@@ -6,7 +6,6 @@ import {
   Button,
   Typography,
 } from '@material-tailwind/react';
-
 import { Link, useNavigate } from 'react-router-dom';
 
 export function SignUp() {
@@ -25,11 +24,12 @@ export function SignUp() {
 
     if (!name || !email || !password || !passwordConfirmation) {
       setErrorMessage('All fields are required.');
+      setIsLoading(false);
       return;
     }
 
     if (password.length < 6) {
-      setErrorMessage('Password must be at least 5 characters long.');
+      setErrorMessage('Password must be at least 6 characters long.');
       setIsLoading(false);
       return;
     }
@@ -57,24 +57,25 @@ export function SignUp() {
       if (response.ok) {
         navigate('/auth/sign-in', { state: { registrationSuccess: true } });
       } else {
-        setErrorMessage('Regitration failed: ' + data.message);
+        setErrorMessage('Registration failed: ' + data.message);
       }
     } catch (error) {
-      setErrorMessage('An error occurred during login');
+      setErrorMessage('An error occurred during registration');
     } finally {
-      setIsLoading('false');
+      setIsLoading(false);
     }
   };
+
   return (
-    <section className='m-8 flex'>
-      <div className='w-2/5 h-full hidden lg:block'>
+    <section className='px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12 flex flex-col lg:flex-row gap-4'>
+      <div className='w-full lg:w-2/5 hidden lg:block'>
         <img
           src='/img/pattern.png'
           className='h-full w-full object-cover rounded-3xl'
         />
       </div>
-      <div className='w-full lg:w-3/5 flex flex-col items-center justify-center'>
-        <div className='text-center'>
+      <div className='w-full lg:w-3/5 flex flex-col items-center lg:items-start'>
+        <div className='text-center lg:text-left w-full lg:w-4/5 mx-auto'>
           <Typography variant='h2' className='font-bold mb-4'>
             Join Us Today
           </Typography>
@@ -87,10 +88,10 @@ export function SignUp() {
           </Typography>
         </div>
         <form
-          className='mt-8 mb-2 mx-auto w-80 max-w-screen-lg lg:w-1/2'
+          className='mt-8 mb-2 mx-auto w-full max-w-md lg:max-w-md'
           onSubmit={handleSubmit}
         >
-          <div className='mb-1 flex flex-col gap-6'>
+          <div className='mb-4 flex flex-col gap-6'>
             <Typography
               variant='small'
               color='blue-gray'
@@ -101,7 +102,7 @@ export function SignUp() {
             <Input
               size='lg'
               placeholder='John Doe'
-              className=' !border-t-blue-gray-200 focus:!border-t-gray-900'
+              className='!border-t-blue-gray-200 focus:!border-t-gray-900'
               labelProps={{
                 className: 'before:content-none after:content-none',
               }}
@@ -118,7 +119,7 @@ export function SignUp() {
             <Input
               size='lg'
               placeholder='name@mail.com'
-              className=' !border-t-blue-gray-200 focus:!border-t-gray-900'
+              className='!border-t-blue-gray-200 focus:!border-t-gray-900'
               labelProps={{
                 className: 'before:content-none after:content-none',
               }}
@@ -136,7 +137,7 @@ export function SignUp() {
               type='password'
               size='lg'
               placeholder='**********'
-              className=' !border-t-blue-gray-200 focus:!border-t-gray-900'
+              className='!border-t-blue-gray-200 focus:!border-t-gray-900'
               labelProps={{
                 className: 'before:content-none after:content-none',
               }}
@@ -154,7 +155,7 @@ export function SignUp() {
               type='password'
               size='lg'
               placeholder='**********'
-              className=' !border-t-blue-gray-200 focus:!border-t-gray-900'
+              className='!border-t-blue-gray-200 focus:!border-t-gray-900'
               labelProps={{
                 className: 'before:content-none after:content-none',
               }}
@@ -170,7 +171,7 @@ export function SignUp() {
           )}
 
           <Button className='mt-6' fullWidth type='submit' disabled={isLoading}>
-            {isLoading == true ? 'Loading' : 'Sign Up'}
+            {isLoading ? 'Loading' : 'Sign Up'}
           </Button>
 
           <Typography

@@ -32,6 +32,7 @@ export function SignIn() {
 
     if (!email || !password) {
       setErrorMessage('All fields are required.');
+      setIsLoading(false);
       return;
     }
 
@@ -68,9 +69,9 @@ export function SignIn() {
   };
 
   return (
-    <section className='m-8 flex gap-4'>
-      <div className='w-full lg:w-3/5 mt-24'>
-        <div className='text-center'>
+    <section className='px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12 flex flex-col lg:flex-row gap-4'>
+      <div className='w-full lg:w-3/5 mx-auto mt-8 lg:mt-24 flex flex-col items-center lg:items-start'>
+        <div className='text-center lg:text-center w-full lg:w-4/5 mx-auto'>
           <Typography variant='h2' className='font-bold mb-4'>
             Sign In
           </Typography>
@@ -88,10 +89,10 @@ export function SignIn() {
           )}
         </div>
         <form
-          className='mt-8 mb-2 mx-auto w-80 max-w-screen-lg lg:w-1/2'
+          className='mt-8 mb-2 w-full max-w-xs sm:max-w-md lg:w-1/2 mx-auto'
           onSubmit={handleSubmit}
         >
-          <div className='mb-1 flex flex-col gap-6'>
+          <div className='mb-4 flex flex-col gap-6'>
             <Typography
               variant='small'
               color='blue-gray'
@@ -136,10 +137,8 @@ export function SignIn() {
           )}
 
           <Button className='mt-6' fullWidth type='submit' disabled={isLoading}>
-            {isLoading == true ? 'Loading' : 'Sign In'}
+            {isLoading ? 'Loading' : 'Sign In'}
           </Button>
-
-          <div className='flex items-center justify-between gap-2 mt-6'></div>
 
           <Typography
             variant='paragraph'
@@ -152,7 +151,7 @@ export function SignIn() {
           </Typography>
         </form>
       </div>
-      <div className='w-2/5 h-full hidden lg:block'>
+      <div className='hidden lg:block w-full lg:w-2/5'>
         <img
           src='/img/pattern.png'
           className='h-full w-full object-cover rounded-3xl'

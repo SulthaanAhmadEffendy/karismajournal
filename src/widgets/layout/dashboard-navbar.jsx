@@ -20,6 +20,7 @@ import {
   ClockIcon,
   CreditCardIcon,
   Bars3Icon,
+  ArrowLeftOnRectangleIcon, // Tambahkan ikon logout
 } from '@heroicons/react/24/solid';
 import {
   useMaterialTailwindController,
@@ -89,15 +90,26 @@ export function DashboardNavbar() {
             <Bars3Icon strokeWidth={3} className='h-6 w-6 text-blue-gray-500' />
           </IconButton>
           {isLoggedIn ? (
-            <Button
-              variant='text'
-              color='blue-gray'
-              className='hidden items-center gap-1 px-4 xl:flex normal-case'
-              onClick={handleLogout}
-            >
-              <UserCircleIcon className='h-5 w-5 text-blue-gray-500' />
-              Logout
-            </Button>
+            <>
+              <Button
+                variant='text'
+                color='blue-gray'
+                className='hidden items-center gap-1 px-4 xl:flex normal-case'
+                onClick={handleLogout}
+              >
+                <UserCircleIcon className='h-5 w-5 text-blue-gray-500' />
+                Logout
+              </Button>
+              <IconButton
+                variant='text'
+                color='blue-gray'
+                className='grid xl:hidden'
+                onClick={handleLogout}
+              >
+                <ArrowLeftOnRectangleIcon className='h-5 w-5 text-blue-gray-500' />
+              </IconButton>
+              <Menu></Menu>
+            </>
           ) : (
             <Link to='/auth/sign-in'>
               <Button
@@ -124,54 +136,6 @@ export function DashboardNavbar() {
               </IconButton>
             </MenuHandler>
             <MenuList className='w-max border-0'>
-              <MenuItem className='flex items-center gap-3'>
-                <Avatar
-                  src='https://demos.creative-tim.com/material-dashboard/assets/img/team-2.jpg'
-                  alt='item-1'
-                  size='sm'
-                  variant='circular'
-                />
-                <div>
-                  <Typography
-                    variant='small'
-                    color='blue-gray'
-                    className='mb-1 font-normal'
-                  >
-                    <strong>New message</strong> from Laur
-                  </Typography>
-                  <Typography
-                    variant='small'
-                    color='blue-gray'
-                    className='flex items-center gap-1 text-xs font-normal opacity-60'
-                  >
-                    <ClockIcon className='h-3.5 w-3.5' /> 13 minutes ago
-                  </Typography>
-                </div>
-              </MenuItem>
-              <MenuItem className='flex items-center gap-4'>
-                <Avatar
-                  src='https://demos.creative-tim.com/material-dashboard/assets/img/small-logos/logo-spotify.svg'
-                  alt='item-1'
-                  size='sm'
-                  variant='circular'
-                />
-                <div>
-                  <Typography
-                    variant='small'
-                    color='blue-gray'
-                    className='mb-1 font-normal'
-                  >
-                    <strong>New album</strong> by Travis Scott
-                  </Typography>
-                  <Typography
-                    variant='small'
-                    color='blue-gray'
-                    className='flex items-center gap-1 text-xs font-normal opacity-60'
-                  >
-                    <ClockIcon className='h-3.5 w-3.5' /> 1 day ago
-                  </Typography>
-                </div>
-              </MenuItem>
               <MenuItem className='flex items-center gap-4'>
                 <div className='grid h-9 w-9 place-items-center rounded-full bg-gradient-to-tr from-blue-gray-800 to-blue-gray-900'>
                   <CreditCardIcon className='h-4 w-4 text-white' />
