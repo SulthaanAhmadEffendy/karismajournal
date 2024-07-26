@@ -18,6 +18,7 @@ const IndexJr = () => {
   const [loading, setLoading] = useState(true);
   const [loadingAdd, setLoadingAdd] = useState(false);
   const [loadingEdit, setLoadingEdit] = useState(false);
+  const [loadingDelete, setLoadingDelete] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [editJournal, setEditJournal] = useState(null);
   const [categories, setCategories] = useState([]);
@@ -31,6 +32,8 @@ const IndexJr = () => {
   });
   const [addJournalMessage, setAddJournalMessage] = useState('');
   const [isAddJournalError, setIsAddJournalError] = useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [journalToDelete, setJournalToDelete] = useState(null);
 
   useEffect(() => {
     fetchJournals();
@@ -79,7 +82,7 @@ const IndexJr = () => {
   };
 
   const deleteJournal = async (id) => {
-    setLoading(true);
+    setLoadingDelete(true);
     const token = localStorage.getItem('token');
     try {
       await axios.delete(
@@ -99,14 +102,30 @@ const IndexJr = () => {
       fetchJournals();
     } catch (error) {
       console.log('Error deleting journal:', error);
-      setLoading(false);
+      setLoadingDelete(false);
+    } finally {
+      setLoadingDelete(false);
     }
   };
 
-  const handleDeleteClick = (id) => {
-    if (window.confirm('Are you sure to delete this journal?')) {
-      deleteJournal(id);
-    }
+  const handleDeleteClick = (journal) => {
+    openDeleteModal(journal);
+  };
+
+  // const handleDeleteClick = (id) => {
+  //   if (window.confirm('Are you sure to delete this journal?')) {
+  //     deleteJournal(id);
+  //   }
+  // };
+
+  const openDeleteModal = (journal) => {
+    setJournalToDelete(journal);
+    setDeleteModalOpen(true);
+  };
+
+  const closeDeleteModal = () => {
+    setJournalToDelete(null);
+    setDeleteModalOpen(false);
   };
 
   const handleEditClick = (journal) => {
@@ -166,7 +185,7 @@ const IndexJr = () => {
     ) {
       setAddJournalMessage('Please fill in all fields.');
       setIsAddJournalError(true);
-      setLoading(false);
+      setLoadingAdd(false);
       return;
     }
 
@@ -224,6 +243,8 @@ const IndexJr = () => {
       }
       setAddJournalMessage(`Error: ${error.message}`);
       setIsAddJournalError(true);
+      setLoadingAdd(false);
+    } finally {
       setLoadingAdd(false);
     }
   };
@@ -483,12 +504,12 @@ const IndexJr = () => {
                             Edit
                           </Button>
                           <Button
-                            onClick={() => handleDeleteClick(item.id)}
+                            onClick={() => handleDeleteClick(item)}
                             className=' py-2 px-2 text-xs'
-                            disabled={loading}
+                            disabled={loadingDelete}
                             color='red'
                           >
-                            {loading ? 'Deleting...' : 'Delete'}
+                            {loadingDelete ? 'Deleting...' : 'Delete'}
                           </Button>
                         </td>
                       </tr>
@@ -609,6 +630,35 @@ const IndexJr = () => {
             {loadingEdit ? 'Updating...' : 'Save'}
           </Button>
           <Button color='red' onClick={closeEditModal}>
+            Cancel
+          </Button>
+        </DialogFooter>
+      </Dialog>
+
+      <Dialog
+        open={deleteModalOpen}
+        onClose={closeDeleteModal}
+        size='xs'
+        className='overflow-auto'
+      >
+        <DialogHeader>Confirm Delete</DialogHeader>
+        <DialogBody>
+          Are you sure you want to delete the journal description "
+          {journalToDelete?.description}"?
+        </DialogBody>
+        <DialogFooter>
+          <Button
+            color='red'
+            className='mr-2'
+            onClick={() => {
+              deleteJournal(journalToDelete.id);
+              closeDeleteModal();
+            }}
+            disabled={loadingDelete}
+          >
+            {loadingDelete ? 'Deleting' : 'Delete'}
+          </Button>
+          <Button color='blue' onClick={closeDeleteModal}>
             Cancel
           </Button>
         </DialogFooter>
