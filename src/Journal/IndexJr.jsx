@@ -112,12 +112,6 @@ const IndexJr = () => {
     openDeleteModal(journal);
   };
 
-  // const handleDeleteClick = (id) => {
-  //   if (window.confirm('Are you sure to delete this journal?')) {
-  //     deleteJournal(id);
-  //   }
-  // };
-
   const openDeleteModal = (journal) => {
     setJournalToDelete(journal);
     setDeleteModalOpen(true);
@@ -320,6 +314,8 @@ const IndexJr = () => {
         setMessage(`Error: ${error.message}`);
       }
       setIsError(true);
+      setLoadingEdit(false);
+    } finally {
       setLoadingEdit(false);
     }
   };
