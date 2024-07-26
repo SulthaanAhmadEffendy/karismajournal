@@ -643,7 +643,7 @@ const IndexJr = () => {
       >
         <DialogHeader>Confirm Delete</DialogHeader>
         <DialogBody>
-          Are you sure you want to delete the journal description "
+          Are you sure you want to delete journals with the description "
           {journalToDelete?.description}"?
         </DialogBody>
         <DialogFooter>
