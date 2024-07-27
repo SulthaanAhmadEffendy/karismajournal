@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 
 const ProtectedRoute = ({ children }) => {
   const isLoggedIn = !!localStorage.getItem('token');
@@ -8,7 +8,7 @@ const ProtectedRoute = ({ children }) => {
     return <Navigate to='/auth/sign-in' replace />;
   }
 
-  return children;
+  return <Outlet />;
 };
 
 export default ProtectedRoute;
