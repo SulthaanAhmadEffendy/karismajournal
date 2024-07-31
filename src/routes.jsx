@@ -1,19 +1,22 @@
 import {
   FolderIcon,
-  UserCircleIcon,
   TableCellsIcon,
-  InformationCircleIcon,
+  KeyIcon,
+  UserIcon,
   ServerStackIcon,
   RectangleStackIcon,
 } from '@heroicons/react/24/solid';
-import { Home, Profile, Tables, Notifications } from '@/pages/dashboard';
 import { SignIn, SignUp } from '@/pages/auth';
 import Index from './Categories/Index';
 import IndexJr from './Journal/IndexJr';
+import User from './User/User';
+import Coordinator from './Coordinator/Coordinator';
 
 const icon = {
   className: 'w-5 h-5 text-inherit',
 };
+
+const userRole = localStorage.getItem('role');
 
 export const routes = [
   {
@@ -25,24 +28,28 @@ export const routes = [
         path: '/categories',
         element: <Index />,
       },
-      // {
-      //   icon: <UserCircleIcon {...icon} />,
-      //   name: 'profile',
-      //   path: '/profile',
-      //   element: <Profile />,
-      // },
       {
         icon: <TableCellsIcon {...icon} />,
         name: 'journals',
         path: '/journals',
         element: <IndexJr />,
       },
-      // {
-      //   icon: <InformationCircleIcon {...icon} />,
-      //   name: 'notifications',
-      //   path: '/notifications',
-      //   element: <Notifications />,
-      // },
+      {
+        icon: <KeyIcon {...icon} />,
+        name: 'coordinators',
+        path: '/coordinators',
+        element: <Coordinator />,
+      },
+      ...(userRole === 'admin' || userRole === 'coordinator'
+        ? [
+            {
+              icon: <UserIcon {...icon} />,
+              name: 'users',
+              path: '/users',
+              element: <User />,
+            },
+          ]
+        : []),
     ],
   },
   {

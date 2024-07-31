@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { Dashboard, Auth } from '@/layouts';
 import ProtectedRoute from './ProtectedRoute';
+import Error from './Error';
 
 function App() {
   return (

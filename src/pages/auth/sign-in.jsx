@@ -56,7 +56,7 @@ export function SignIn() {
 
       if (response.ok) {
         localStorage.setItem('token', data.data.token);
-        navigate('/dashboard');
+        localStorage.setItem('role', data.data.role);
       } else {
         setErrorMessage('Login failed: ' + data.message);
       }
@@ -64,6 +64,7 @@ export function SignIn() {
       console.error(error);
       setErrorMessage('An error occurred during login');
     } finally {
+      navigate('/dashboard');
       setIsLoading(false);
     }
   };

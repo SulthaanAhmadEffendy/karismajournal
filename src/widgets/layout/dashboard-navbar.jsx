@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import {
   Navbar,
@@ -20,7 +20,7 @@ import {
   ClockIcon,
   CreditCardIcon,
   Bars3Icon,
-  ArrowLeftOnRectangleIcon, // Tambahkan ikon logout
+  ArrowLeftOnRectangleIcon,
 } from '@heroicons/react/24/solid';
 import {
   useMaterialTailwindController,
@@ -38,6 +38,7 @@ export function DashboardNavbar() {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('role');
     navigate('/auth/sign-in');
   };
 

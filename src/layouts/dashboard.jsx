@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Cog6ToothIcon } from '@heroicons/react/24/solid';
 import { IconButton } from '@material-tailwind/react';
@@ -9,8 +10,6 @@ import {
 } from '@/widgets/layout';
 import routes from '@/routes';
 import { useMaterialTailwindController, setOpenConfigurator } from '@/context';
-import routes2 from '@/routes2';
-import routes3 from '@/routes3';
 
 export function Dashboard() {
   const [controller, dispatch] = useMaterialTailwindController();
@@ -36,33 +35,17 @@ export function Dashboard() {
         >
           <Cog6ToothIcon className='h-5 w-5' />
         </IconButton>
+
         <Routes>
           {routes.map(
             ({ layout, pages }) =>
               layout === 'dashboard' &&
               pages.map(({ path, element }) => (
-                <Route exact path={path} element={element} />
+                <Route key={path} exact path={path} element={element} />
               ))
           )}
         </Routes>
-        <Routes>
-          {routes2.map(
-            ({ layout, pages }) =>
-              layout === 'categories' &&
-              pages.map(({ path, element }) => (
-                <Route exact path={path} element={element} />
-              ))
-          )}
-        </Routes>
-        <Routes>
-          {routes3.map(
-            ({ layout, pages }) =>
-              layout === 'journals' &&
-              pages.map(({ path, element }) => (
-                <Route exact path={path} element={element} />
-              ))
-          )}
-        </Routes>
+
         <div className='text-blue-gray-600'>
           <Footer />
         </div>
