@@ -20,7 +20,7 @@ function Add() {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.post(
-        'https://journal.bariqfirjatullah.pw/api/category',
+        'http://api.bariqfirjatullah.my.id/api/category',
         { name: categoryName },
         {
           headers: {

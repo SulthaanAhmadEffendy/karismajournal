@@ -17,7 +17,7 @@ function AddJr() {
       try {
         const token = localStorage.getItem('token');
         const { data } = await axios.get(
-          'https://journal.bariqfirjatullah.pw/api/category',
+          'http://api.bariqfirjatullah.my.id/api/category',
           {
             headers: {
               'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ function AddJr() {
         .replace('T', ' ');
 
       const response = await axios.post(
-        'https://journal.bariqfirjatullah.pw/api/journal',
+        'http://api.bariqfirjatullah.my.id/api/journal',
         {
           start_at: formattedStartAt,
           end_at: formattedEndAt,

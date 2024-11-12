@@ -36,7 +36,7 @@ export function SignUp() {
 
     try {
       const response = await fetch(
-        'https://journal.bariqfirjatullah.pw/api/auth/register',
+        'http://api.bariqfirjatullah.my.id/api/auth/register',
         {
           method: 'POST',
           headers: {
