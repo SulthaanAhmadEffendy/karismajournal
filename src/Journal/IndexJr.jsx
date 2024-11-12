@@ -44,7 +44,7 @@ const IndexJr = () => {
 
     try {
       const response = await axios.get(
-        'http://api.bariqfirjatullah.my.id/api/journal',
+        'https://api.bariqfirjatullah.my.id/api/journal',
         {
           headers: {
             Accept: 'application/json',
@@ -66,7 +66,7 @@ const IndexJr = () => {
     const token = localStorage.getItem('token');
     try {
       const { data } = await axios.get(
-        'http://api.bariqfirjatullah.my.id/api/category',
+        'https://api.bariqfirjatullah.my.id/api/category',
         {
           headers: {
             Accept: 'application/json',
@@ -85,7 +85,7 @@ const IndexJr = () => {
     const token = localStorage.getItem('token');
     try {
       await axios.delete(
-        `http://api.bariqfirjatullah.my.id/api/journal/${id}`,
+        `https://api.bariqfirjatullah.my.id/api/journal/${id}`,
         {
           headers: {
             'Content-Type': 'application/json',
@@ -189,7 +189,7 @@ const IndexJr = () => {
       const formattedEndAt = formatDateToYmdHms(newJournal.end_at);
 
       const response = await axios.post(
-        'http://api.bariqfirjatullah.my.id/api/journal',
+        'https://api.bariqfirjatullah.my.id/api/journal',
         {
           start_at: formattedStartAt,
           end_at: formattedEndAt,
@@ -267,7 +267,7 @@ const IndexJr = () => {
       const formattedEndAt = formatDateToYmdHms(editJournal.end_at);
 
       const response = await axios.put(
-        `http://api.bariqfirjatullah.my.id/api/journal/${editJournal.id}`,
+        `https://api.bariqfirjatullah.my.id/api/journal/${editJournal.id}`,
         {
           start_at: formattedStartAt,
           end_at: formattedEndAt,

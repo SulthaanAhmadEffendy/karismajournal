@@ -16,7 +16,7 @@ function Koordinator() {
 
     try {
       const { data } = await axios.get(
-        'http://api.bariqfirjatullah.my.id/api/coordinator',
+        'https://api.bariqfirjatullah.my.id/api/coordinator',
         {
           headers: {
             Accept: 'application/json',

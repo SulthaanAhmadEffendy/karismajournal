@@ -38,7 +38,7 @@ export function SignIn() {
 
     try {
       const response = await fetch(
-        'http://api.bariqfirjatullah.my.id/api/auth/login',
+        'https://api.bariqfirjatullah.my.id/api/auth/login',
         {
           method: 'POST',
           headers: {

@@ -18,7 +18,7 @@ function Edit() {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.get(
-        `http://api.bariqfirjatullah.my.id/api/category/${id}`,
+        `https://api.bariqfirjatullah.my.id/api/category/${id}`,
         {
           headers: {
             Accept: 'application/json',
@@ -42,7 +42,7 @@ function Edit() {
     const token = localStorage.getItem('token');
     try {
       const response = await axios.put(
-        `http://api.bariqfirjatullah.my.id/api/category/${id}`,
+        `https://api.bariqfirjatullah.my.id/api/category/${id}`,
         { name },
         {
           headers: {

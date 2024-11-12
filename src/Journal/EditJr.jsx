@@ -21,7 +21,7 @@ const EditJr = () => {
       try {
         const token = localStorage.getItem('token');
         const { data } = await axios.get(
-          `http://api.bariqfirjatullah.my.id/api/journal/${id}`,
+          `https://api.bariqfirjatullah.my.id/api/journal/${id}`,
           {
             headers: {
               Accept: 'application/json',
@@ -44,7 +44,7 @@ const EditJr = () => {
       try {
         const token = localStorage.getItem('token');
         const { data } = await axios.get(
-          'http://api.bariqfirjatullah.my.id/api/category',
+          'https://api.bariqfirjatullah.my.id/api/category',
           {
             headers: {
               Accept: 'application/json',
@@ -88,7 +88,7 @@ const EditJr = () => {
         .replace('T', ' ');
 
       const response = await axios.put(
-        `http://api.bariqfirjatullah.my.id/api/journal/${id}`,
+        `https://api.bariqfirjatullah.my.id/api/journal/${id}`,
         {
           start_at: formattedStartAt,
           end_at: formattedEndAt,

@@ -26,7 +26,7 @@ function Index() {
 
     try {
       const { data } = await axios.get(
-        'http://api.bariqfirjatullah.my.id/api/category',
+        'https://api.bariqfirjatullah.my.id/api/category',
         {
           headers: {
             Accept: 'application/json',
@@ -67,7 +67,7 @@ function Index() {
     const token = localStorage.getItem('token');
     try {
       const response = await axios.put(
-        `http://api.bariqfirjatullah.my.id/api/category/${editId}`,
+        `https://api.bariqfirjatullah.my.id/api/category/${editId}`,
         { name },
         {
           headers: {
@@ -121,7 +121,7 @@ function Index() {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.post(
-        'http://api.bariqfirjatullah.my.id/api/category',
+        'https://api.bariqfirjatullah.my.id/api/category',
         { name: categoryName },
         {
           headers: {
@@ -165,7 +165,7 @@ function Index() {
     const token = localStorage.getItem('token');
     try {
       await axios.delete(
-        `http://api.bariqfirjatullah.my.id/api/category/${id}`,
+        `https://api.bariqfirjatullah.my.id/api/category/${id}`,
         {
           headers: {
             'Content-Type': 'application/json',
