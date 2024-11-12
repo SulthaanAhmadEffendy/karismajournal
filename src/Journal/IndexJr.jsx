@@ -21,6 +21,7 @@ const IndexJr = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [editJournal, setEditJournal] = useState(null);
   const [categories, setCategories] = useState([]);
+  const [coordinator, setCoordinator] = useState([]);
   const [isError, setIsError] = useState(false);
   const [newJournal, setNewJournal] = useState({
     start_at: '',
@@ -28,7 +29,9 @@ const IndexJr = () => {
     category_id: '',
     description: '',
     status: 'progress',
+    coordinator_id: '',
   });
+
   const [addJournalMessage, setAddJournalMessage] = useState('');
   const [isAddJournalError, setIsAddJournalError] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
@@ -37,6 +40,7 @@ const IndexJr = () => {
   useEffect(() => {
     fetchJournals();
     fetchCategories();
+    fetchCoordinator();
   }, []);
 
   const fetchJournals = async () => {
@@ -77,6 +81,24 @@ const IndexJr = () => {
       setCategories(data.data || []);
     } catch (error) {
       console.error('Failed to fetch categories:', error);
+    }
+  };
+
+  const fetchCoordinator = async () => {
+    const token = localStorage.getItem('token');
+    try {
+      const { data } = await axios.get(
+        'https://api.bariqfirjatullah.my.id/api/coordinator',
+        {
+          headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setCoordinator(data.data || []);
+    } catch (error) {
+      console.error('Failed to fetch coordinator:', error);
     }
   };
 
@@ -173,6 +195,7 @@ const IndexJr = () => {
       !newJournal.start_at ||
       !newJournal.end_at ||
       !newJournal.category_id ||
+      !newJournal.coordinator_id ||
       !newJournal.description ||
       !newJournal.status
     ) {
@@ -194,6 +217,7 @@ const IndexJr = () => {
           start_at: formattedStartAt,
           end_at: formattedEndAt,
           category_id: newJournal.category_id,
+          coordinator_id: newJournal.coordinator_id,
           description: newJournal.description,
           status: newJournal.status,
         },
@@ -213,6 +237,7 @@ const IndexJr = () => {
           start_at: '',
           end_at: '',
           category_id: '',
+          coordinator_id: '',
           description: '',
           status: 'progress',
         });
@@ -251,6 +276,7 @@ const IndexJr = () => {
       !editJournal.start_at ||
       !editJournal.end_at ||
       !editJournal.category_id ||
+      !editJournal.coordinator_id ||
       !editJournal.description ||
       !editJournal.status
     ) {
@@ -272,6 +298,7 @@ const IndexJr = () => {
           start_at: formattedStartAt,
           end_at: formattedEndAt,
           category_id: editJournal.category_id,
+          coordinator_id: editJournal.coordinator_id,
           description: editJournal.description,
           status: editJournal.status,
         },
@@ -409,6 +436,8 @@ const IndexJr = () => {
                   </select>
                 </div>
               </div>
+             
+              
               <div className='mb-4'>
                 <label
                   htmlFor='description'
@@ -424,6 +453,28 @@ const IndexJr = () => {
                   required
                 ></textarea>
               </div>
+              <div className='mb-4'>
+                  <label
+                    htmlFor='coordinator_id'
+                    className='block text-gray-700 mb-2'
+                  >
+                    Coordinator
+                  </label>
+                  <select
+                    id='coordinator_id'
+                    value={newJournal.coordinator_id}
+                    onChange={handleInputChange}
+                    className='w-1/2 px-3 py-2 border border-gray-300 rounded'
+                    required
+                  >
+                    <option value=''>Choose Coordinator</option>
+                    {coordinator.map((coordinator) => (
+                      <option key={coordinator.id} value={coordinator.id}>
+                        {coordinator.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               <Button
                 type='submit'
                 size='md'
@@ -445,6 +496,7 @@ const IndexJr = () => {
               </div>
             )}
           </div>
+          
           <hr class='border-t border-black my-4'></hr>
           <CardBody>
             <div className='text-center mb-5 font-bold'>Journals List</div>
@@ -466,6 +518,7 @@ const IndexJr = () => {
                     <th className='py-3 px-4 text-left'>Category</th>
                     <th className='py-3 px-4 text-left'>Description</th>
                     <th className='py-3 px-4 text-left'>Status</th>
+                    <th className='py-3 px-4 text-left'>Coordinator</th>
                     <th className='py-3 px-4 text-left'>Action</th>
                   </tr>
                 </thead>
@@ -489,6 +542,9 @@ const IndexJr = () => {
                             value={item.status}
                             className='w-fit'
                           />
+                        </td>
+                        <td className='py-3 px-4'>
+                        {item.coordinator.name}
                         </td>
                         <td className='py-3 px-4 flex space-x-2'>
                           <Button
@@ -577,6 +633,28 @@ const IndexJr = () => {
                   {categories.map((cat) => (
                     <option key={cat.id} value={cat.id}>
                       {cat.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className='mb-4'>
+                <label
+                  htmlFor='category_id'
+                  className='block text-gray-700 mb-2'
+                >
+                 Coordinator
+                </label>
+                <select
+                  id='coordinator_id'
+                  value={editJournal.coordinator_id}
+                  onChange={handleInputChange}
+                  className='w-full px-3 py-2 border border-gray-300 rounded'
+                  required
+                >
+                  <option value=''>Choose Coordinator</option>
+                  {coordinator.map((coor) => (
+                    <option key={coor.id} value={coor.id}>
+                      {coor.name}
                     </option>
                   ))}
                 </select>

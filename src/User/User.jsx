@@ -41,7 +41,7 @@ const User = () => {
 
     try {
       const response = await axios.get(
-        'https://journal.bariqfirjatullah.pw/api/user',
+        'https://api.bariqfirjatullah.my.id/api/user',
         {
           headers: {
             Accept: 'application/json',
@@ -63,7 +63,7 @@ const User = () => {
     setLoadingDelete(true);
     const token = localStorage.getItem('token');
     try {
-      await axios.delete(`https://journal.bariqfirjatullah.pw/api/user/${id}`, {
+      await axios.delete(`https://api.bariqfirjatullah.my.id/api/user/${id}`, {
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
@@ -138,7 +138,7 @@ const User = () => {
       const token = localStorage.getItem('token');
 
       const response = await axios.post(
-        'https://journal.bariqfirjatullah.pw/api/user',
+        'https://api.bariqfirjatullah.my.id/api/user',
         {
           name: newUser.name,
           email: newUser.email,
@@ -210,7 +210,7 @@ const User = () => {
       const token = localStorage.getItem('token');
 
       const response = await axios.put(
-        `https://journal.bariqfirjatullah.pw/api/user/${editUser.id}`,
+        `https://api.bariqfirjatullah.my.id/api/user/${editUser.id}`,
         {
           name: editUser.name,
           email: editUser.email,

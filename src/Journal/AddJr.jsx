@@ -63,6 +63,7 @@ function AddJr() {
           start_at: formattedStartAt,
           end_at: formattedEndAt,
           category_id: categoryId,
+          coordinator_id: coordinatorId,
           description,
           status,
         },
