@@ -57,14 +57,15 @@ export function SignIn() {
       if (response.ok) {
         localStorage.setItem('token', data.data.token);
         localStorage.setItem('role', data.data.role);
+        navigate('/dashboard');
       } else {
         setErrorMessage('Login failed: ' + data.message);
       }
+     
     } catch (error) {
       console.error(error);
       setErrorMessage('An error occurred during login');
     } finally {
-      navigate('/dashboard');
       setIsLoading(false);
     }
   };
