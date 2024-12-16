@@ -57,7 +57,7 @@ export function SignIn() {
       if (response.ok) {
         localStorage.setItem('token', data.data.token);
         localStorage.setItem('role', data.data.role);
-        navigate('/dashboard');
+        navigate('/dashboard/categories');
       } else {
         setErrorMessage('Login failed: ' + data.message);
       }
